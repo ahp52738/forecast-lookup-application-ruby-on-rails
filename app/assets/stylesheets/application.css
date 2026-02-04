@@ -1,0 +1,136 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+:root {
+  color-scheme: light;
+  font-family: "Georgia", "Times New Roman", serif;
+  background-color: #f6f1e7;
+  color: #2d2b28;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top left, #fdf8f1 0%, #f6f1e7 45%, #efe7d8 100%);
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+.header h1 {
+  font-size: 2.6rem;
+  margin-bottom: 8px;
+}
+
+.header p {
+  margin-top: 0;
+  color: #615a52;
+}
+
+.card {
+  background: #fffaf2;
+  border: 1px solid #e7dcc9;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(30, 27, 23, 0.08);
+  margin-bottom: 24px;
+}
+
+.forecast-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d6c7b0;
+  font-size: 1rem;
+}
+
+.actions input {
+  background: #3a2f25;
+  color: #fdf8f1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.status {
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+.status.error {
+  color: #b00020;
+}
+
+.results .meta {
+  border-bottom: 1px solid #eadfcd;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.summary {
+  margin-bottom: 24px;
+}
+
+.temp {
+  font-size: 2.4rem;
+  margin: 0 0 8px;
+}
+
+.muted {
+  color: #7b6f63;
+}
+
+.periods {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.periods li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee3d2;
+}
+
+.periods li:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 720px) {
+  .forecast-form {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .field {
+    flex: 1;
+  }
+
+  .actions {
+    flex: 0 0 auto;
+  }
+}

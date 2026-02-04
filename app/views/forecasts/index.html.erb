@@ -1,0 +1,74 @@
+<main class="page">
+  <header class="header">
+    <h1>Forecast Lookup</h1>
+    <p>Enter a full address or ZIP code to see the latest forecast.</p>
+  </header>
+
+  <section class="card">
+    <%= form_with url: forecast_path, method: :get, local: true, class: "forecast-form" do |form| %>
+      <div class="field">
+        <%= form.label :address, "Address or ZIP" %>
+        <%= form.text_field :address, value: @address, placeholder: "1600 Pennsylvania Ave NW, Washington, DC 20500", required: true %>
+      </div>
+      <div class="actions">
+        <%= form.submit "Get Forecast" %>
+      </div>
+    <% end %>
+
+    <% if @error.present? %>
+      <p class="status error"><%= @error %></p>
+    <% end %>
+  </section>
+
+  <% if @forecast.present? %>
+    <section class="card results">
+      <div class="meta">
+        <p><strong>Resolved Address:</strong> <%= @resolved_address %></p>
+        <% if @zip.present? %>
+          <p><strong>ZIP:</strong> <%= @zip %></p>
+        <% end %>
+        <p class="status">
+          <%= @from_cache ? "Pulled from cache (30 min)" : "Live request" %>
+          <% if @cache_note.present? %>
+            - <%= @cache_note %>
+          <% end %>
+        </p>
+      </div>
+
+      <div class="summary">
+        <h2>Current Conditions</h2>
+        <p class="temp">
+          <%= @forecast.dig(:current, :temperature) %>°<%= @forecast.dig(:current, :unit) %>
+        </p>
+        <p><%= @forecast.dig(:current, :short_forecast) %></p>
+        <% if @forecast.dig(:current, :time).present? %>
+          <p class="muted">As of <%= @forecast.dig(:current, :time) %></p>
+        <% end %>
+      </div>
+
+      <% if @forecast[:high_low].present? %>
+        <div class="summary">
+          <h2>Next 24 Hours</h2>
+          <p>
+            High: <%= @forecast.dig(:high_low, :high) %>°<%= @forecast.dig(:high_low, :unit) %>
+            | Low: <%= @forecast.dig(:high_low, :low) %>°<%= @forecast.dig(:high_low, :unit) %>
+          </p>
+        </div>
+      <% end %>
+
+      <% if @forecast[:periods].present? %>
+        <div class="summary">
+          <h2>Extended Forecast</h2>
+          <ul class="periods">
+            <% @forecast[:periods].each do |period| %>
+              <li>
+                <strong><%= period[:name] %>:</strong>
+                <%= period[:temperature] %>°<%= period[:unit] %> - <%= period[:short_forecast] %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+</main>
